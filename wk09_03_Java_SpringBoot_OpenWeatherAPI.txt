@@ -1,0 +1,99 @@
+wk09_03 Java Spring Boot Open Weather API (Application Programming Interface)
+
+  utilizes this site for the app API: https://home.openweathermap.org/users/sign_up
+
+
+APIs let applications make request to another application that lives somewhere on the web
+   REST APIs  - app will make request to a URL - server will parse the URL and determine what data was requested,
+                 then return the requested data in JSON format
+
+APIs allow applications to share resources and data
+
+
+   APIs are generally structured around a well-defined Client-Server relationship
+
+  Client                        Server
+  -------                       ------
+ 1. Sends Request            1. Receives and parses request
+ 2. Waits for response       2. Retrieves data from source
+ 3. Parses and relays        3. Compiles data and sends a response
+     response                    response to client
+
+    APIs are stateless  -- you MUST include all information necessary
+          to understand the request
+
+      ex: cannot ask an API to give you a list of the request history, ANY data persistence must occur on client side
+
+      JSON - JavaScript Object Notation
+       - collection of name/value pairs
+       - easy to read
+       - similar key/value relation like Java HashMap
+       - can easily be generated from Java objects (and vice versa)
+
+       Sample Java Class
+       -----------------
+
+            public class Person {
+                public String firstName;
+                public String lastName;
+                public int age;
+                public List<String> favoriteFoods;
+            }
+
+       JSON - Object of type Person
+       -----------------------------
+
+            Person person = new Person();
+            person.firstName = "Brutus";
+            person.lastName = "Buckeye";
+            person.age = 53;
+            person.favoriteFoods = Arrays.asList
+            ("Hamburgers", "Pizza", "Milkshakes");
+
+       JSON generated from Person object
+       ---------------------------------
+
+            {
+                "firstName":"Brutus",
+                "lastName":"Buckeye",
+                "age":53,
+                "favoriteFoods":[
+                   "Hamburger",
+                   "Pizza",
+                   "Milkshakes"
+                ]
+            }
+
+ Back to APIs --
+   API Key - get that key from the API provider and keep it secret as your password or any other key
+
+     our project uses site:
+        https://home.openweathermap.org
+    and  https://openweathermap.org/current   -- we are using by zipcode
+
+    start.spring.io -- to initialize our spring boot
+      these dependencies
+             Spring Data JPA  -- allow us to use data
+             H2 Database  -- the database
+             Lombock  -- annotation library to reduce boilerplate code
+             Thymeleaf -- Template Engines - modern server-side Java template engine for web and standalone
+                         environments. allow HTML to be displayed in browsers as static prototypes.
+             Spring Web -- use RESTful applications to build Web (uses Tomcat <Apache> as default)
+
+Make certain in coding Java that you make certain that every class does 
+
+   -- look into Spring profiles -- and hiding information like API keys in gitignore
+
+search into Java Dependecy
+
+** utilizing Lombok to remove boilerplate code -- removes over 100 lines of constructors, getters, setter, and toString()
+    @Data will add getter, setters, toString, etc...
+    @NoArgsConstructor will add a default constructor
+**
+
+
+
+we made the Local Weather app using Java, Spring, ThymeLeaf
+
+
+

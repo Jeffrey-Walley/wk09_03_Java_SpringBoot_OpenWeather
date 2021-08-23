@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- bringing in thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather APP -- TTS wk09 day03 - Java Spring Boot API project</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<!-- Form to accept zipcode information from user -- utilizes the newly created 'Request' Class, onto the Request Class-->
+<div class="col-md-6 offset-md-3">
+    <br/>
+    <h1 class="text-center">Get Your Local Forecast</h1>
+    <form th:action="@{/}" th:object="${request}" method="post" autocomplete="off" >
+        <div class="form-group">
+            <input type="text" th:field="*{zipCode}" placeholder="Zip Code" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-md btn-primary btn-block" name="Submit" value="Submit" type="Submit">
+                Check Weather</button>
+        </div>
+    </form>
+    <hr>
+    <span th:if="${data != null && data.name == 'error'}">
+        ERROR: Invalid zip code entry. Weather data not found.
+    </span>
+</div>
+
+<!-- the formatted WeatherController output that is Viewed on the homepage -->
+
+<div class="container bg-light justify-content-center">
+    <div class="row">
+        <div class="col col-md-6 offset-md-3">
+            <br/>
+            <div th:if="${data != null && data.name != 'error'}">
+            <!-- data.name here is an attribute that we created in 'WeatherController' -->
+            <h3>Forecast for <span th:text="${data.name}"></span></h3>
+            <!-- degree symbol -- hold 'alt' + '0176' then release alt then you have a degree symbol -->
+            <p><b>Local Temperature:</b> <span th:text="${data.main.get('temp')}"></span> °F</p>
+            <p><b>Cloud Cover:</b> <span th:text="${data.clouds.get('all')}"></span> %</p>
+            <p><b>Wind Speed:</b> <span th:text="${data.wind.get('speed')}"></span> mph</p>
+            <p><b>Conditions:</b> <span th:text="${data.weather[0].get('description')}"></span>, out there, right now!
+            </p>
+
+            <!-- added an image -->
+            <img th:src="@{${'http://openweathermap.org/img/w/'
+                      + data.weather[0].get('icon') + '.png'}}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Last 10 zip code Search History -->
+<ul>
+    <li th:each="search : ${history}" >
+        <span th:text="${search.zipCode}"></span>
+    </li>
+</ul>
+
+</body>
+</html>
